@@ -11,16 +11,16 @@ while d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[4]/div/section/d
     d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[4]/div/section/div[5]/div/div[3]/button').click
     wait.until{d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[4]/div/section/div[5]/div/div[3]/button').displayed?}
 end
-
-
+                                    
+wait.until(d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[3]/section/section/section[1]/div/section/div[4]/div/div[1]').find_elements(:tag_name,'a').displayed?)
 a2 = d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[4]/section/section/section[1]/div/section/div[4]/div[1]').find_elements(:tag_name,'a').count
 
 while i <= a1 do
     A1 = d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[4]/section/section/section[1]/div/section/div[4]/div[1]').find_elements(:tag_name,'a')
     A1[i].click
     sleep 5
-
-    buts = d.find_elements(:xpath,'//*[@id="accordion-id"]')
+    
+    buts = d.find_elements(:xpath,'//*[@id="accordion-id"]') #商品詳細ボタンのクリック
     buts.each do |but|
         but.click 
         sleep 1
@@ -30,15 +30,19 @@ while i <= a1 do
     name = d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[4]/section/div[2]/div[1]/div/h1')#商品名
     price = d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[4]/section/div[2]/div[1]/div/div[1]/span/div/div/span')#価格
     materials = d.find_element(:xpath,'//*[@id="accordion-id-content"]/div/ul/div[1]/ul').find_elements(:tag_name, 'p')#素材部分
+    image = d.find_element(:xpath,'//*[@id="root"]/div/div/div[1]/div[4]/section/div[2]/div[2]/div/div/div/div[2]/div/div[1]/div/ul/li[1]/div/div/img').attribute('src')
+
 
     puts name.text
     puts price.text
 
     materials.each do |material|
         puts material.text
-    end 
+    end
+    
+    puts image.text
     
     d.navigate.back
     sleep 5 
-    j += 1
+    i += 1
 end
